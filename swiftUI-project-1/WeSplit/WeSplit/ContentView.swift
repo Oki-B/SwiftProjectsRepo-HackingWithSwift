@@ -30,7 +30,7 @@ struct ContentView: View {
                     Text("Hello, World!")
                 }
             }
-            .navigationTitle("SwiftUI")
+            .navigationTitle("SwiftUI") // add a navigation title
             .navigationBarTitleDisplayMode(.inline) // to make display smaller and get into the middle top of the view
         }
     }
