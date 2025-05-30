@@ -8,30 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var checkAmount = 0.0
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 20
+    
+    let tipPercentages = [10, 15, 20, 25, 0]
+    
     var body: some View {
-        NavigationStack {
-            Form { // creating a form
-                Section { // separating from into a section
-                    Text("Hello, World!")
-                }
-                
-                Section {
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                }
-                
-                Section {
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                    Text("Hello, World!")
-                }
+        Form {
+            Section {
+                TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD")) // check the currencyof user based in their region settings
+                    .keyboardType(.decimalPad) // .numberPad and .decimalPad tell swiftUI to show the digits 0 through 9 and optionally decimal point
             }
-            .navigationTitle("SwiftUI") // add a navigation title
-            .navigationBarTitleDisplayMode(.inline) // to make display smaller and get into the middle top of the view
+            
+            Section {
+                Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD"))
+            }
         }
     }
 }
