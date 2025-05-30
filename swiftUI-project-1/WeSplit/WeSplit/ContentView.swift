@@ -29,6 +29,17 @@ struct ContentView: View {
                     .pickerStyle(.navigationLink) // create a picker in form of navigation link => directing to other view, require navigation stack as a parents
                 }
                 
+                // create a section for segemented picker
+                Section("How much would you like to tip?") {
+                    Picker("Tip percentage", selection: $tipPercentage) {
+                        ForEach(tipPercentages, id: \.self) {
+                            Text($0, format: .percent) // format .percent to create a number in a format of percentage
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
+                
                 Section {
                     Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD"))
                 }
