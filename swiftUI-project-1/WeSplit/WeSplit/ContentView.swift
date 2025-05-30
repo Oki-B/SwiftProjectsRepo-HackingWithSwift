@@ -9,25 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Form { // creating a form
-            Section { // separating from into a section
-                Text("Hello, World!")
+        NavigationStack {
+            Form { // creating a form
+                Section { // separating from into a section
+                    Text("Hello, World!")
+                }
+                
+                Section {
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                }
+                
+                Section {
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                    Text("Hello, World!")
+                }
             }
-            
-            Section {
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-            }
-            
-            Section {
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-            }
+            .navigationTitle("SwiftUI")
+            .navigationBarTitleDisplayMode(.inline) // to make display smaller and get into the middle top of the view
         }
     }
 }
