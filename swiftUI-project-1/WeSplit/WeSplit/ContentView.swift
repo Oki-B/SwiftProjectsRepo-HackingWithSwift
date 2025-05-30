@@ -15,15 +15,25 @@ struct ContentView: View {
     let tipPercentages = [10, 15, 20, 25, 0]
     
     var body: some View {
-        Form {
-            Section {
-                TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD")) // check the currencyof user based in their region settings
-                    .keyboardType(.decimalPad) // .numberPad and .decimalPad tell swiftUI to show the digits 0 through 9 and optionally decimal point
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD")) // check the currencyof user based in their region settings
+                        .keyboardType(.decimalPad) // .numberPad and .decimalPad tell swiftUI to show the digits 0 through 9 and optionally decimal point
+                    
+                    Picker("Number of people", selection: $numberOfPeople) {
+                        ForEach(2...100, id: \.self) {
+                            Text("\($0) poeple")
+                        }
+                    }
+                    .pickerStyle(.navigationLink) // create a picker in form of navigation link => directing to other view, require navigation stack as a parents
+                }
+                
+                Section {
+                    Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD"))
+                }
             }
-            
-            Section {
-                Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD"))
-            }
+            .navigationTitle("WeSplit")
         }
     }
 }
