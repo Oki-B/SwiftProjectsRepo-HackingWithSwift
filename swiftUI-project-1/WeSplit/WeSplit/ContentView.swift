@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var checkAmount = 0.0
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
+    @FocusState private var amountIsFocused: Bool // is a state variable to control the keyboard pad
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
@@ -30,8 +31,9 @@ struct ContentView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD")) // check the currencyof user based in their region settings
+                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "SGD")) // check the currency of user based in their region settings
                         .keyboardType(.decimalPad) // .numberPad and .decimalPad tell swiftUI to show the digits 0 through 9 and optionally decimal point
+                        .focused($amountIsFocused) // modifier to control the visibility of keyboardPad
                     
                     Picker("Number of people", selection: $numberOfPeople) {
                         ForEach(2...100, id: \.self) {
@@ -57,6 +59,13 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("WeSplit")
+            .toolbar {
+                if amountIsFocused { // create a toolbar button to change the focus state for control
+                    Button("Done") {
+                        amountIsFocused = false
+                    }
+                }
+            }
         }
     }
 }
