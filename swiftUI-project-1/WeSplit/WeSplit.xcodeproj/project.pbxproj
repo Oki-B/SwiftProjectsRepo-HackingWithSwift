@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		327CB48B2DE79D4300733B11 /* StartingWithSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StartingWithSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		327CB4AE2DE9C9A400733B11 /* WeSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeSplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		327CB48D2DE79D4300733B11 /* StartingWithSwiftUI */ = {
+		327CB4B02DE9C9A400733B11 /* WeSplit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = StartingWithSwiftUI;
+			path = WeSplit;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		327CB4882DE79D4300733B11 /* Frameworks */ = {
+		327CB4AB2DE9C9A400733B11 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -29,18 +29,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		327CB4822DE79D4300733B11 = {
+		327CB4A52DE9C9A400733B11 = {
 			isa = PBXGroup;
 			children = (
-				327CB48D2DE79D4300733B11 /* StartingWithSwiftUI */,
-				327CB48C2DE79D4300733B11 /* Products */,
+				327CB4B02DE9C9A400733B11 /* WeSplit */,
+				327CB4AF2DE9C9A400733B11 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		327CB48C2DE79D4300733B11 /* Products */ = {
+		327CB4AF2DE9C9A400733B11 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				327CB48B2DE79D4300733B11 /* StartingWithSwiftUI.app */,
+				327CB4AE2DE9C9A400733B11 /* WeSplit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,64 +48,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		327CB48A2DE79D4300733B11 /* StartingWithSwiftUI */ = {
+		327CB4AD2DE9C9A400733B11 /* WeSplit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 327CB4962DE79D4400733B11 /* Build configuration list for PBXNativeTarget "StartingWithSwiftUI" */;
+			buildConfigurationList = 327CB4B92DE9C9A500733B11 /* Build configuration list for PBXNativeTarget "WeSplit" */;
 			buildPhases = (
-				327CB4872DE79D4300733B11 /* Sources */,
-				327CB4882DE79D4300733B11 /* Frameworks */,
-				327CB4892DE79D4300733B11 /* Resources */,
+				327CB4AA2DE9C9A400733B11 /* Sources */,
+				327CB4AB2DE9C9A400733B11 /* Frameworks */,
+				327CB4AC2DE9C9A400733B11 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				327CB48D2DE79D4300733B11 /* StartingWithSwiftUI */,
+				327CB4B02DE9C9A400733B11 /* WeSplit */,
 			);
-			name = StartingWithSwiftUI;
+			name = WeSplit;
 			packageProductDependencies = (
 			);
-			productName = StartingWithSwiftUI;
-			productReference = 327CB48B2DE79D4300733B11 /* StartingWithSwiftUI.app */;
+			productName = WeSplit;
+			productReference = 327CB4AE2DE9C9A400733B11 /* WeSplit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		327CB4832DE79D4300733B11 /* Project object */ = {
+		327CB4A62DE9C9A400733B11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
-					327CB48A2DE79D4300733B11 = {
+					327CB4AD2DE9C9A400733B11 = {
 						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
-			buildConfigurationList = 327CB4862DE79D4300733B11 /* Build configuration list for PBXProject "StartingWithSwiftUI" */;
+			buildConfigurationList = 327CB4A92DE9C9A400733B11 /* Build configuration list for PBXProject "WeSplit" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 327CB4822DE79D4300733B11;
+			mainGroup = 327CB4A52DE9C9A400733B11;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 327CB48C2DE79D4300733B11 /* Products */;
+			productRefGroup = 327CB4AF2DE9C9A400733B11 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				327CB48A2DE79D4300733B11 /* StartingWithSwiftUI */,
+				327CB4AD2DE9C9A400733B11 /* WeSplit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		327CB4892DE79D4300733B11 /* Resources */ = {
+		327CB4AC2DE9C9A400733B11 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -115,7 +115,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		327CB4872DE79D4300733B11 /* Sources */ = {
+		327CB4AA2DE9C9A400733B11 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,7 +125,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		327CB4942DE79D4400733B11 /* Debug */ = {
+		327CB4B72DE9C9A500733B11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -189,7 +189,7 @@
 			};
 			name = Debug;
 		};
-		327CB4952DE79D4400733B11 /* Release */ = {
+		327CB4B82DE9C9A500733B11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -246,7 +246,7 @@
 			};
 			name = Release;
 		};
-		327CB4972DE79D4400733B11 /* Debug */ = {
+		327CB4BA2DE9C9A500733B11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -266,7 +266,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Oki.StartingWithSwiftUI;
+				PRODUCT_BUNDLE_IDENTIFIER = Oki.WeSplit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -274,7 +274,7 @@
 			};
 			name = Debug;
 		};
-		327CB4982DE79D4400733B11 /* Release */ = {
+		327CB4BB2DE9C9A500733B11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -294,7 +294,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Oki.StartingWithSwiftUI;
+				PRODUCT_BUNDLE_IDENTIFIER = Oki.WeSplit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -305,25 +305,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		327CB4862DE79D4300733B11 /* Build configuration list for PBXProject "StartingWithSwiftUI" */ = {
+		327CB4A92DE9C9A400733B11 /* Build configuration list for PBXProject "WeSplit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				327CB4942DE79D4400733B11 /* Debug */,
-				327CB4952DE79D4400733B11 /* Release */,
+				327CB4B72DE9C9A500733B11 /* Debug */,
+				327CB4B82DE9C9A500733B11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		327CB4962DE79D4400733B11 /* Build configuration list for PBXNativeTarget "StartingWithSwiftUI" */ = {
+		327CB4B92DE9C9A500733B11 /* Build configuration list for PBXNativeTarget "WeSplit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				327CB4972DE79D4400733B11 /* Debug */,
-				327CB4982DE79D4400733B11 /* Release */,
+				327CB4BA2DE9C9A500733B11 /* Debug */,
+				327CB4BB2DE9C9A500733B11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 327CB4832DE79D4300733B11 /* Project object */;
+	rootObject = 327CB4A62DE9C9A400733B11 /* Project object */;
 }

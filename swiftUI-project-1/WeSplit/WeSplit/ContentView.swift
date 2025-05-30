@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  StartingWithSwiftUI
+//  WeSplit
 //
-//  Created by Syaoki Biek on 29/05/25.
+//  Created by Syaoki Biek on 30/05/25.
 //
 
 import SwiftUI
