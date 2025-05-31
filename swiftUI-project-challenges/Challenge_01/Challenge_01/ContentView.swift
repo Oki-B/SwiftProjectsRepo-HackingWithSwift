@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var inputNumber: Double = 0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Tab("Temperature", systemImage:
+                    "thermometer.variable") {
+                TemperatureConversion(temperature: $inputNumber)
+            }
+            
+            Tab("Length", systemImage: "lines.measurement.horizontal") {
+                LengthConversion(length: $inputNumber)
+            }
+            
+            Tab("Time", systemImage: "clock") {
+                TimeConversion(time: $inputNumber)
+            }
+            
+            Tab("Volume", systemImage: "cube.transparent") {
+                VolumeConversion(volume: $inputNumber)
+            }
         }
-        .padding()
     }
 }
 
