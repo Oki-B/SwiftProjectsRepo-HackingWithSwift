@@ -14,6 +14,8 @@ import SwiftUI
  3. Change the tip percentage picker to show a new screen rather than using a segmented control, and give it a wider range of options – everything from 0% to 100%. Tip: use the range 0..<101 for your range rather than a fixed array.
  */
 
+// Challenge -> Go back to project 1 and use a conditional modifier to change the total amount text view to red if the user selects a 0% tip.
+
 struct ContentView: View {
     @State private var checkAmount = 0.0
     @State private var numberOfPeople = 2
@@ -94,8 +96,11 @@ struct ContentView: View {
                             code: Locale.current.currency?.identifier ?? "SGD"
                         )
                     )
+                    .foregroundStyle(
+                        tipPercentage == 0 ? .red : .primary // conditional modififer
+                    )
                 }
-                
+
                 Section("Amount Per Person:") {  // challenge number 1
                     Text(
                         totalPerPerson,
@@ -104,7 +109,7 @@ struct ContentView: View {
                         )
                     )
                 }
-                
+
             }
             .navigationTitle("WeSplit")
             .toolbar {
