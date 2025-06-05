@@ -15,6 +15,17 @@ import SwiftUI
 
  */
 
+// Challenge -> Go back to project 2 and replace the Image view used for flags with a new FlagImage() view that renders one flag image using the specific set of modifiers we had.
+
+struct FlagImage: View { // from materi view composition
+    var country: String
+    var body: some View {
+        Image(country)
+            .clipShape(.capsule)
+            .shadow(radius: 5)
+    }
+}
+
 struct ContentView: View {
     @State private var countries = [
         "Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Monaco",
@@ -27,7 +38,7 @@ struct ContentView: View {
     @State private var scoreTitle = ""
 
     @State private var userScore = 0  // challenge number 1
-    @State private var questionNumber = 1 // for challenge number 3
+    @State private var questionNumber = 1  // for challenge number 3
 
     var body: some View {
         ZStack {
@@ -70,9 +81,12 @@ struct ContentView: View {
                             // flag was tapped
                             flagTapped(number)
                         } label: {
+                            /*
                             Image(countries[number])
                                 .clipShape(.capsule)
                                 .shadow(radius: 5)
+                             */
+                            FlagImage(country: countries[number])  // change the image with use new view
                         }
                     }
                 }
@@ -95,7 +109,7 @@ struct ContentView: View {
         .alert(scoreTitle, isPresented: $showingScore) {
             if questionNumber < 8 {
                 Button("Continue", action: askQuestion)
-            } else { // challenge number 3
+            } else {  // challenge number 3
                 Button("Play Again", action: resetGame)
             }
 
@@ -106,14 +120,14 @@ struct ContentView: View {
                 } else {
                     Text("Your score is: \(userScore)")  // challenge number 1
                 }
-            } else { // challenge number 3
+            } else {  // challenge number 3
                 Text("Your final score is: \(userScore)")
             }
 
         }
     }
 
-    func resetGame() { // challenge number 3
+    func resetGame() {  // challenge number 3
         questionNumber = 0
         userScore = 0
         askQuestion()
@@ -121,7 +135,7 @@ struct ContentView: View {
 
     func flagTapped(_ number: Int) {
         userAnswer = number
-        if questionNumber <= 8 { // challenge number 3
+        if questionNumber <= 8 {  // challenge number 3
             if number == correctAnswer {
                 scoreTitle = "Correct"
                 userScore += 1  // challenge number 1
