@@ -14,7 +14,7 @@ struct LoadResources: View {
     
     func testBundles() {
         if let fileURL = Bundle.main.url(forResource: "words", withExtension: "txt") {
-            if let fileContens = try? String(contentsOf: fileURL ,encoding: .utf8) {
+            if (try? String(contentsOf: fileURL ,encoding: .utf8)) != nil {
                 // load the file into a string!
             }
         }
