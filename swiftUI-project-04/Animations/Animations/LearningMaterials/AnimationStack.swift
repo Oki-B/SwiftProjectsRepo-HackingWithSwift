@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  AnimationStack.swift
 //  Animations
 //
 //  Created by Syaoki Biek on 26/06/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct AnimationStack: View {
     @State private var enabled1: Bool = false
     @State private var enabled2: Bool = false
     @State private var enabled3: Bool = false
@@ -63,5 +63,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    AnimationStack()
 }
