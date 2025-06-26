@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  AnimatingGesture.swift
 //  Animations
 //
 //  Created by Syaoki Biek on 26/06/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct AnimatingGesture: View {
     let letters = Array("Hello, SwiftUI!")
 
     @State private var dragAmount1 = CGSize.zero
@@ -96,5 +96,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    AnimatingGesture()
 }
