@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  AnimatingBindings.swift
 //  Animations
 //
 //  Created by Syaoki Biek on 26/06/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct AnimatingBindings: View {
     @State private var animationAmount = 1.0
 
     var body: some View {
@@ -35,5 +35,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    AnimatingBindings()
 }
