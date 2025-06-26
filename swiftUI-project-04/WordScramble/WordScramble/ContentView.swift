@@ -11,6 +11,10 @@ struct ContentView: View {
     @State private var usedWord = [String]()
     @State private var rootWord: String = ""
     @State private var newWord: String = ""
+    
+    @State private var errorTitle: String = ""
+    @State private var errorMessage: String = ""
+    @State private var showingError: Bool = false
 
     var body: some View {
 
@@ -34,6 +38,9 @@ struct ContentView: View {
             .navigationTitle(rootWord)
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
+            .alert(errorTitle, isPresented: $showingError) {
+                Button("OK") { }
+            } message: { Text(errorMessage) }
         }
     }
 
@@ -47,6 +54,24 @@ struct ContentView: View {
         }
 
         // extra validation
+        // validation for duplicated word
+        guard isOriginal(word: word) else {
+            wordError(title: "Duplicate Word", message: "You have already used this word")
+            return
+        }
+        
+        // validation for possible word from the available letters
+        guard isPossible(word: word) else {
+            wordError(title: "Invalid Word", message: "Word ust be possible to be spell from '\(rootWord)'!")
+            return
+        }
+        
+        // validation for is the word is an real english word
+        guard isReal(word: word) else {
+            wordError(title: "Invalid Word", message: "Word '\(word)' is not in english dictionary!")
+            return
+        }
+        
         withAnimation {  // add simple animation for element
             usedWord.insert(word, at: 0)  // insert new word at first index
         }
@@ -72,6 +97,41 @@ struct ContentView: View {
         
         // if we get here, then the apps failed to load. use Fatal error to trigger and error report
         fatalError("Could not load start.txt from bundle")
+    }
+    
+    // check if the word is already use
+    func isOriginal(word: String) -> Bool {
+        !usedWord.contains(word)
+    }
+    
+    // check if the word is possible with the letter available in the word
+    func isPossible(word: String) -> Bool {
+        var tempWord = rootWord
+        
+        // loop to check and remove each letter used
+        for letter in word {
+            if let pos = tempWord.firstIndex(of: letter) {
+                tempWord.remove(at: pos)
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+    
+    // check whether the word is a real words
+    func isReal(word: String) -> Bool {
+        // check spelling using UI Text Checker
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let missSpelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        return missSpelledRange.location == NSNotFound
+    }
+    
+    func wordError(title: String, message: String) {
+        errorTitle = title
+        errorMessage = message
+        showingError = true
     }
 
 }
