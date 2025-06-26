@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ExplicitAnimation.swift
 //  Animations
 //
 //  Created by Syaoki Biek on 26/06/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ExplicitAnimation: View {
     @State private var animationAmount = 0.0
 
     var body: some View {
@@ -72,5 +72,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ExplicitAnimation()
 }
