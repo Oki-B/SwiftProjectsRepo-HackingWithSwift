@@ -47,10 +47,10 @@ struct Strings: View {
         letter = letters.randomElement() ?? "none" // random from letter element
         trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        var word = "nice to mat you"
-        var checker = UITextChecker()
+        let word = "nice to mat you"
+        let checker = UITextChecker()
         
-        var range = NSRange(location: 0, length: word.utf16.count)
+        let range = NSRange(location: 0, length: word.utf16.count)
         let missspelledRange = checker.rangeOfMisspelledWord(in: word,
                                                              range: range,
                                                              startingAt: 0,
