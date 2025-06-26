@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  UsingTransition.swift
 //  Animations
 //
-//  Created by Syaoki Biek on 26/06/25.
+//  Created by Syaoki Biek on 27/06/25.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct UsingTransition: View {
     @State private var isShowingRectangle: Bool = false
 
     var body: some View {
@@ -44,5 +44,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    UsingTransition()
 }
