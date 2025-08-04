@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var appMove = Int.random(in: 0..<3)
     @State private var shouldWin = Bool.random()
     @State private var userMove: Int = 0
-    
+   
     @State private var score: Int = 0
     @State private var round: Int = 0
     @State private var showScore: Bool = false
@@ -133,6 +133,7 @@ struct ContentView: View {
                 alertTitle = "Incorrect"
             } else {
                 alertTitle = "Correct"
+
                 score += 1
             }
         default:  // draw case
