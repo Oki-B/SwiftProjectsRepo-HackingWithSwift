@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import Observation //it can be used to dig deep to know how @Observable works
 
 //struct User { if we create the struct’s properties as variable but the struct itself is constant, we can’t change the properties – Swift needs to be able to destroy and recreate the whole struct when a property changes, and that isn’t possible for constant structs.
 //    var firstName = "Bilbo"
 //    var lastName = "Baggins"
 //}
 
-@Observable 
+@Observable // by import Observation we can right-click and expand it using "Expand Macro" to see how it actually works
 class User { //Class work differently with struct, Classes don’t need the mutating keyword, because even if the class instance is marked as constant Swift can still modify variable properties.
     var firstName = "Bilbo"
     var lastName = "Baggins"
