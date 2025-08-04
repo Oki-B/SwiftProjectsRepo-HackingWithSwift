@@ -13,7 +13,6 @@ struct DeletingItems: View {
 
     var body: some View {
         NavigationStack {
-
             VStack {
                 List {
                     ForEach(numbers, id: \.self) {
