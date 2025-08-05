@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct ExpenseItems {
+struct ExpenseItem: Identifiable {
+    let id = UUID()
     let name: String
     let type: String
     let amount: Double
@@ -15,7 +16,7 @@ struct ExpenseItems {
 
 @Observable
 class Expenses {
-    var items = [ExpenseItems]()
+    var items = [ExpenseItem]()
 }
 
 struct ContentView: View {
@@ -24,7 +25,8 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(expenses.items, id: \.name) { item in
+                // using protocol Identifiable make us do not need wrote id parameter anymore it will automatically get id with type of UUID
+                ForEach(expenses.items) { item in
                     Text(item.name)
                 }
                 .onDelete(perform: removeItems)
@@ -32,7 +34,7 @@ struct ContentView: View {
             .navigationTitle("iExpense")
             .toolbar {
                 Button("Add Expense", systemImage: "plus") {
-                    let expense = ExpenseItems(name: "New Expense", type: "Food", amount: 100.0)
+                    let expense = ExpenseItem(name: "New Expense", type: "Food", amount: 100.0)
                     expenses.items.append(expense)
                 }
             }
