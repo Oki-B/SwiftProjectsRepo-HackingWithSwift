@@ -53,7 +53,7 @@ struct MissionView: View {
                     HStack {
                         ForEach(crew, id: \.role) { crewMember in // can be called for merging the data on one view
                             NavigationLink {
-                                Text("Astronaut details")
+                                AstronautView(astronaut: crewMember.astronaut)
                             } label: {
                                 HStack {
                                     Image(crewMember.astronaut.id)
@@ -90,7 +90,7 @@ struct MissionView: View {
         .background(.darkBackground)
     }
 
-    init(mission: Mission, astronauts: [String: Astronaut]) {
+    init(mission: Mission, astronauts: [String: Astronaut]) { // init the nested struct 
         self.mission = mission
         self.crew = mission.crew.map { member in
             if let astronaut = astronauts[member.name] {
