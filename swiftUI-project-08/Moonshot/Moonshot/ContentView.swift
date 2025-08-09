@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
 //    let astronauts = Bundle.main.decode("astronauts.json")
     // while using generic function we need to define the type annotation
@@ -23,7 +24,7 @@ struct ContentView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(missions) { mission in
                         NavigationLink {
-                            Text("Detail view")
+                            MissionView(mission: mission, astronauts: astronauts)
                         } label: {
                             VStack {
                                 Image(mission.image)
