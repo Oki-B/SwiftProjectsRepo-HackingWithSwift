@@ -8,7 +8,8 @@
 import Foundation
 
 extension Bundle {
-    func decode(_ file: String) -> [String: Astronaut] {
+//    func decode(_ file: String) -> [String: Astronaut] {
+    func decode<T: Codable>(_ file: String) -> T { // create generic parameter to build reusable function
         // look for the file inside on the bundle
         guard let url = self.url(forResource: file, withExtension: nil) else {
             fatalError("Fail to locate \(file) in bundle.")
@@ -31,7 +32,7 @@ extension Bundle {
         
         // creating code for troubleshooting error more specific
         do {
-            return try decoder.decode([String: Astronaut].self, from: data)
+            return try decoder.decode(T.self, from: data)
         } catch DecodingError.keyNotFound(let key, let context) {
             fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' - \(context.debugDescription)")
         } catch DecodingError.typeMismatch(_, let context) {
