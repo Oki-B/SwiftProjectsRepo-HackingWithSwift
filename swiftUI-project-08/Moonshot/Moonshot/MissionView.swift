@@ -7,14 +7,18 @@
 
 import SwiftUI
 
-struct MissionView: View {
-    struct CrewMember { // creating nested struct to merge data
-        let role: String
-        let astronaut: Astronaut
+struct divider: View {
+    var body: some View {
+        Rectangle()
+            .frame(height: 2)
+            .foregroundStyle(.lightBackground)
+            .padding(.vertical)
     }
+}
 
+struct MissionView: View {
     let mission: Mission
-    let crew: [CrewMember] // declare it here as a type of annotation
+    let astronauts: [String: Astronaut]
 
     var body: some View {
         ScrollView {
@@ -25,12 +29,15 @@ struct MissionView: View {
                     .containerRelativeFrame(.horizontal) { width, axis in
                         width * 0.6
                     }
+                
+                // Moonshot: Wrap up Challenge 1
+                Text(mission.launchDate?.formatted(date: .complete, time: .omitted) ?? "N/A")
+                    .font(.headline)
+                    .padding(.top)
+                    
             
                 VStack(alignment: .leading) {
-                    Rectangle()
-                        .frame(height: 2)
-                        .foregroundStyle(.lightBackground)
-                        .padding(.vertical)
+                    divider()
                     
                     Text("Mission Highlights")
                         .font(.title.bold())
@@ -38,10 +45,7 @@ struct MissionView: View {
 
                     Text(mission.description)
                     
-                    Rectangle()
-                        .frame(height: 2)
-                        .foregroundStyle(.lightBackground)
-                        .padding(.vertical)
+                    divider()
                     
                     Text("Crew")
                         .font(.title.bold())
@@ -49,39 +53,8 @@ struct MissionView: View {
                 }
                 .padding(.horizontal)
 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(crew, id: \.role) { crewMember in // can be called for merging the data on one view
-                            NavigationLink {
-                                AstronautView(astronaut: crewMember.astronaut)
-                            } label: {
-                                HStack {
-                                    Image(crewMember.astronaut.id)
-                                        .resizable()
-                                        .frame(width: 104, height: 72)
-                                        .clipShape(.capsule)
-                                        .overlay(
-                                            Capsule()
-                                                .strokeBorder(
-                                                    .white,
-                                                    lineWidth: 1
-                                                )
-                                        )
+                CrewMemberView(mission: mission, astronauts: astronauts)
 
-                                    VStack(alignment: .leading) {
-                                        Text(crewMember.astronaut.name)
-                                            .foregroundStyle(.white)
-                                            .font(.headline)
-
-                                        Text(crewMember.role)
-                                            .foregroundStyle(.white.opacity(0.5))
-                                    }
-                                }
-                                .padding(.horizontal)
-                            }
-                        }
-                    }
-                }
             }
             .padding(.bottom)
         }
@@ -90,22 +63,13 @@ struct MissionView: View {
         .background(.darkBackground)
     }
 
-    init(mission: Mission, astronauts: [String: Astronaut]) { // init the nested struct 
-        self.mission = mission
-        self.crew = mission.crew.map { member in
-            if let astronaut = astronauts[member.name] {
-                return CrewMember(role: member.role, astronaut: astronaut)
-            } else {
-                fatalError("Missing \(member.name)")
-            }
-        }
-    }
+
 }
 
 #Preview {
     let missions: [Mission] = Bundle.main.decode("missions.json")
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
 
-    return MissionView(mission: missions[0], astronauts: astronauts)
+    return MissionView(mission: missions[2], astronauts: astronauts)
         .preferredColorScheme(.dark)
 }
