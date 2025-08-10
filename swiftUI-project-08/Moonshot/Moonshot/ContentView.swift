@@ -7,55 +7,34 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
-//    let astronauts = Bundle.main.decode("astronauts.json")
+    //    let astronauts = Bundle.main.decode("astronauts.json")
     // while using generic function we need to define the type annotation
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
-    
-    let columns = [
-        GridItem(.adaptive(minimum: 150))
-    ]
-    
+
+    @State private var isGridLayout = true
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(missions) { mission in
-                        NavigationLink {
-                            MissionView(mission: mission, astronauts: astronauts)
-                        } label: {
-                            VStack {
-                                Image(mission.image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .padding()
-                                
-                                VStack {
-                                    Text(mission.displayName)
-                                        .font(.headline)
-                                        .foregroundStyle(.white)
-                                    
-                                    Text(mission.formattedLaunchDate)
-                                        .font(.caption)
-                                        .foregroundStyle(.white.opacity(0.5))
-                                }
-                                .padding(.vertical)
-                                .frame(maxWidth: .infinity)
-                                .background(.lightBackground)
-                            }
-                            .clipShape(.rect(cornerRadius: 10))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.lightBackground)
-                                )
-        
-                        }
-                    }
+            // Moonshot: Wrap up challenge 3
+            Group {
+                if isGridLayout {
+                    GridLayout(astronauts: astronauts, missions: missions)
+                } else {
+                    ListLayout(astronauts: astronauts, missions: missions)
                 }
-                .padding([.horizontal, .bottom])
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isGridLayout.toggle()
+                    } label: {
+                        Image(systemName: "\(isGridLayout ? "rectangle.grid.1x2" : "square.grid.2x2")")
+                            .foregroundStyle(.white)
+                    }
+
+                }
             }
             .navigationTitle("Moonshot")
             .background(.darkBackground)
