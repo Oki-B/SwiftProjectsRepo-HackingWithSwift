@@ -16,7 +16,7 @@ struct DetailView: View {
     
     init(number: Int) {
         self.number = number
-        print("Creating detai view for \(number)")
+//        print("Creating detai view for \(number)")
     }
 }
 
