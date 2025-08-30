@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var title = "SwiftUI"
     var body: some View {
         NavigationStack {
             List(0..<100) { i in
@@ -28,12 +29,12 @@ struct ContentView: View {
 //                }
                 
                 // or we can use group to make it in a shorthands code
-                ToolbarItemGroup(placement: .cancellationAction) {
-                    Button("Group Tap"){}
-                    Button("Another Group Tap"){}
-                }
+//                ToolbarItemGroup(placement: .cancellationAction) {
+//                    Button("Group Tap"){}
+//                    Button("Another Group Tap"){}
+//                }
             }
-            .navigationTitle("Title goes here")
+            .navigationTitle($title) // using $ make you can change or edit the value of the variable
             .navigationBarTitleDisplayMode(.inline) // customize the display mode of nagiation bar Title
             .toolbarBackground(.blue) // customize it's background color
             .toolbarColorScheme(.dark) // customize how it apperance for the Title text
