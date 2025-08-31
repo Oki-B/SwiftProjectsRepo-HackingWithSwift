@@ -8,23 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var moves: [String] = ["✊🏻", "🖐🏻", "✌🏻"]
-    @State private var appMove = Int.random(in: 0..<3)
-    @State private var shouldWin = Bool.random()
-    @State private var userMove: Int = 0
-   
-    @State private var score: Int = 0
-    @State private var round: Int = 0
-    @State private var showScore: Bool = false
-    @State private var alertTitle: String = ""
+    @StateObject var viewModel = ViewModel()
 
     var body: some View {
         VStack {
             Text("Focus Game")
                 .font(.largeTitle)
                 .bold()
-                .foregroundStyle(round == 10 ? .white : .red)
+                .foregroundStyle(viewModel.round == 10 ? .white : viewModel.score == 10 ? .green :.red)
                 .padding(40)
+//            Text("Round : \(round + 1)")
             
             ZStack(alignment: .top) {
                 Rectangle()
@@ -53,14 +46,14 @@ struct ContentView: View {
                     VStack {
                         Text("How can you :")
                             .foregroundStyle(Color.blue)
-                        Text(shouldWin ? "Win" : "Lose")
+                        Text(viewModel.shouldWin ? "Win" : "Lose")
                             .font(.system(size: 48))
                     }
 
                 }
                 .padding(-20)
 
-                Text(moves[appMove])
+                Text(viewModel.moves[viewModel.appMove])
                     .font(.system(size: 150))
                     .padding(.top, 100)
             }
@@ -71,11 +64,11 @@ struct ContentView: View {
                     .font(.title)
 
                 HStack {
-                    ForEach(0..<moves.count, id: \.self) { move in
+                    ForEach(0..<viewModel.moves.count, id: \.self) { move in
                         Button {
-                            checkMove(move)
+                            viewModel.checkMove(move)
                         } label: {
-                            Text(moves[move])
+                            Text(viewModel.moves[move])
                                 .font(.system(size: 50))
                                 .padding(10)
                         }
@@ -85,24 +78,24 @@ struct ContentView: View {
                     }
                 }
                 
-                Text("Your Score: \(score)")
+                Text("Your Score: \(viewModel.score)")
                     .font(.title2)
                     .bold()
             }
             
-            .alert(alertTitle, isPresented: $showScore) {
-                if round == 10 {
+            .alert(viewModel.alertTitle, isPresented: $viewModel.showScore) {
+                if viewModel.round == 10 {
                     Button("Play Again") {
-                        resetGame()
+                        viewModel.resetGame()
                     }
                 } else {
                     Button("Next Round") {
-                        newGame()
+                        viewModel.newGame()
                     }
                 }
             } message: {
-                if round == 10 {
-                    Text("You final socre is \(score).")
+                if viewModel.round == 10 {
+                    Text("You final socre is \(viewModel.score).")
                 }
             }
             .padding()
@@ -112,50 +105,10 @@ struct ContentView: View {
                 
         }
         .frame(maxWidth: .infinity)
-        .background(round == 10 ? .red.opacity(0.7) : .white)
+        .background(viewModel.round == 10 ? .red.opacity(0.7) : .white)
 
     }
     
-    
-
-    func checkMove(_ idx: Int) {
-        userMove = idx
-        switch (userMove, appMove) {
-        case (0, 2), (1, 0), (2, 1):  // win case
-            if shouldWin {
-                alertTitle = "Correct"
-                score += 1
-            } else {
-                alertTitle = "Incorrect"
-            }
-        case (0, 1), (1, 2), (2, 0):  // lose case
-            if shouldWin {
-                alertTitle = "Incorrect"
-            } else {
-                alertTitle = "Correct"
-
-                score += 1
-            }
-        default:  // draw case
-            alertTitle = "Incorrect"
-        }
-        round += 1
-        if round == 10 {
-            alertTitle = "Game Over"
-        }
-        showScore = true
-    }
-
-    func newGame() {
-        appMove = Int.random(in: 0..<3)
-        shouldWin = Bool.random()
-    }
-    
-    func resetGame() {
-        score = 0
-        round = 0
-        newGame()
-    }
 }
 
 #Preview {
