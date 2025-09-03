@@ -185,6 +185,11 @@ struct ContentView: View {
                     }
                 }
             }
+            .gesture(
+                TapGesture().onEnded { _ in
+                    UIApplication.shared.dismissKeyboard()
+                }
+            )
         }
 
     }
