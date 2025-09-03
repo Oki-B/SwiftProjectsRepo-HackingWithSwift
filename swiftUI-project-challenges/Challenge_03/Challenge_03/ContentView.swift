@@ -76,7 +76,7 @@ struct ContentView: View {
                         }
                         .pickerStyle(.menu)
                     }
-                    .disabled(gameIsStarted ? true : false)
+                    .disabled(gameIsStarted && !isCalculated ? true : false)
                     .padding(.vertical, 3)
                     .listRowBackground(Color.gray.opacity(0.05))
 
@@ -97,7 +97,7 @@ struct ContentView: View {
                                             .background(Color.green.opacity(0.25))
                                             .cornerRadius(12)
                                     }
-                                    .padding(.bottom, 12)
+                                    .padding(.bottom, 20)
                                 }
                                 
                                 if !isCalculated {
@@ -168,7 +168,7 @@ struct ContentView: View {
                     .background(Color.white)
                     .shadow(radius: 1)
                     .disabled(
-                        gameIsStarted && answeredCount != totalQuestion
+                        gameIsStarted && !isCalculated && answeredCount != totalQuestion
                     )
 
                 }
