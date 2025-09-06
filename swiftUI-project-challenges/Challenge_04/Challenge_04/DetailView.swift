@@ -15,6 +15,12 @@ struct DetailView: View {
     let columns = [
         GridItem(.adaptive(minimum: 150))
     ]
+    
+    private var isDisabled: Bool {
+        activity.completionData.contains {
+            Calendar.current.isDate($0, inSameDayAs: Date())
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -39,10 +45,11 @@ struct DetailView: View {
                             Text("Mark as complete")
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.blue)
+                                .background(isDisabled ? Color.gray : Color.blue)
                                 .foregroundStyle(.white)
                                 .cornerRadius(12)
                         }
+                        .disabled(isDisabled)
 
                         Text(
                             "Mark if you already completed this activity for today"
