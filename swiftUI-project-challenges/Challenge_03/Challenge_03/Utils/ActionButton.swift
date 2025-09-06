@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+enum TextButton {
+    case start
+    case restart
+    case calculate
+
+    var content: String {
+        switch self {
+        case .start:
+            return "Start Round"
+        case .restart:
+            return "Try Another Round"
+        case .calculate:
+            return "Submit Answers"
+        }
+    }
+
+}
+
 struct ActionButton: View {
     var action: () -> Void
     var labelText: String
@@ -33,5 +51,6 @@ struct ActionButton: View {
 }
 
 #Preview {
-    ActionButton(action: {}, labelText: "Start")
+    let labelText = TextButton.calculate.content
+    return ActionButton(action: {}, labelText: labelText)
 }
