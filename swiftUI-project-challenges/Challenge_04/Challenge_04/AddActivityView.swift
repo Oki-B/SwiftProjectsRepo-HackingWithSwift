@@ -33,6 +33,7 @@ struct AddActivityView: View {
                     activities.items.append(newActivity)
                     dismiss()
                 }
+                .disabled(name.isEmpty || description.isEmpty)
             }
         }
 

@@ -10,17 +10,37 @@ import SwiftUI
 struct ContentView: View {
     @State private var activities = Activities()
     @State private var showAddActivityView: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             VStack {
-                List {
-                    Section("Activit List") {
-                        ForEach (activities.items) { activity in
-                            NavigationLink(activity.title, destination: DetailView(activities: activities, activity: activity))
+                if activities.items.isEmpty {
+                    VStack(spacing: 8) {
+                        Image(systemName: "text.page.slash.fill")
+                            .font(.system(size: 72))
+                            .foregroundStyle(.secondary)
+                        
+                        Text("No activities yet!")
+                            .font(.headline)
+                            .foregroundStyle(.secondary)
+                    }
+
+                } else {
+                    List {
+                        Section("Activit List") {
+                            ForEach(activities.items) { activity in
+                                NavigationLink(
+                                    activity.title,
+                                    destination: DetailView(
+                                        activities: activities,
+                                        activity: activity
+                                    )
+                                )
+                            }
                         }
                     }
                 }
+
             }
             .navigationTitle("Habit Tracker")
             .toolbar {
@@ -36,7 +56,7 @@ struct ContentView: View {
             }
         }
     }
-        
+
 }
 
 #Preview {
