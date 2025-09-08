@@ -8,7 +8,20 @@
 import Foundation
 
 @Observable
-class Order {
+class Order: Codable {
+    // when we working with real server we're gonna need some custom Coding Keys to adjust our response and request for hit and get something from the server
+    enum CodingKeys: String, CodingKey {
+        case _type = "type"
+        case _quantity = "quantity"
+        case _specialRequestEnabled = "specialRequestEnabled"
+        case _extraFrosting = "extraFrosting"
+        case _addSprinkles = "addSprinkles"
+        case _name = "name"
+        case _streetAddress = "streetAddress"
+        case _city = "city"
+        case _zip = "zip"
+    }
+    
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
     var type = 0
