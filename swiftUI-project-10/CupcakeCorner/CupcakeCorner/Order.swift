@@ -7,6 +7,21 @@
 
 import Foundation
 
+// Wrap Up Challenge 1. Improve the validation to make sure a string of pure whitespace is invalid.
+extension String {
+    var isEmptyOrWhitespace: Bool {
+        return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
+// buat struct untuk mempermudah Address variable grouping
+struct Address: Codable {
+    var name: String
+    var streetAddress: String
+    var city: String
+    var zip: String
+}
+
 @Observable
 class Order: Codable {
     // when we working with real server we're gonna need some custom Coding Keys to adjust our response and request for hit and get something from the server
@@ -16,10 +31,7 @@ class Order: Codable {
         case _specialRequestEnabled = "specialRequestEnabled"
         case _extraFrosting = "extraFrosting"
         case _addSprinkles = "addSprinkles"
-        case _name = "name"
-        case _streetAddress = "streetAddress"
-        case _city = "city"
-        case _zip = "zip"
+        case _address = "address"
     }
     
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
@@ -38,13 +50,15 @@ class Order: Codable {
     var extraFrosting = false
     var addSprinkles = false
     
-    var name = ""
-    var streetAddress = ""
-    var city = ""
-    var zip = ""
+    var address: Address = Address(name: "", streetAddress: "", city: "", zip: "")
+    
+    init() {
+        load()
+    }
     
     var hasValidAddress: Bool {
-        !name.isEmpty && !streetAddress.isEmpty && !city.isEmpty && !zip.isEmpty
+        // change .isEmpty with new ext func created foro checking White Space
+        !address.name.isEmptyOrWhitespace && !address.streetAddress.isEmptyOrWhitespace && !address.city.isEmptyOrWhitespace && !address.zip.isEmptyOrWhitespace
     }
     
     var cost: Decimal {
@@ -66,4 +80,22 @@ class Order: Codable {
         
         return cost
     }
+}
+
+extension Order {
+    func save() {
+        if let encoded = try? JSONEncoder().encode(address) { // encode hanya address saja sesuai dengan kebutuhan
+            UserDefaults.standard.set(encoded, forKey: "Address")
+        }
+    }
+    
+    func load() {
+        if let savedAddress = UserDefaults.standard.data(forKey: "Address") {
+            if let decoded = try? JSONDecoder().decode(Address.self, from: savedAddress) {
+                self.address = decoded
+                return
+            }
+        }
+    }
+
 }

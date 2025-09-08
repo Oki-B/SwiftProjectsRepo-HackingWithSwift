@@ -10,6 +10,7 @@ import SwiftUI
 struct CheckoutView: View {
     var order: Order
 
+    @State private var alertTitle = ""
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
 
@@ -44,7 +45,7 @@ struct CheckoutView: View {
         .navigationTitle("Check out")
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize)
-        .alert("Thank you!", isPresented: $showingConfirmation) {
+        .alert(alertTitle, isPresented: $showingConfirmation) {
             Button("OK") {}
         } message: {
             Text(confirmationMessage)
@@ -72,12 +73,18 @@ struct CheckoutView: View {
 
             // handle the result
             let decodedOrder = try JSONDecoder().decode(Order.self, from: data)
+            order.save()
+            alertTitle = "Thank You"
             confirmationMessage =
                 "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
             showingConfirmation = true
 
         } catch {
             print("Check out failed: \(error.localizedDescription)")
+            // Wrap Up Challenge 2. for example if there is no internet connection – show an informative alert for the user
+            alertTitle = "Ops... Sorry!"
+            confirmationMessage = "Check out failed. Please try again later."
+            showingConfirmation = true
         }
     }
 }
