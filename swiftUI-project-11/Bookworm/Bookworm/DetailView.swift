@@ -35,6 +35,14 @@ struct DetailView: View {
                 .font(.title)
                 .foregroundStyle(.secondary)
             
+        
+            // WrapUp Challenge 3
+            Text(book.formattedDate)
+                .font(.caption)
+                .fontDesign(.monospaced)
+                .italic()
+
+            
             Text(book.review)
                 .padding()
             
@@ -68,7 +76,7 @@ struct DetailView: View {
         // to create a preview if you have a swiftData involved, you need to create a temporary storage using modelContainer
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: Book.self, configurations: config)
-        let example = Book(title: "Test Book", author: "Test Author", genre: "Fantasy", review: "This is a test book.", rating: 4)
+        let example = Book(title: "Test Book", author: "Test Author", genre: "Fantasy", review: "This is a test book.", rating: 4, date: Date.now)
         
         return DetailView(book: example)
             .modelContainer(container)

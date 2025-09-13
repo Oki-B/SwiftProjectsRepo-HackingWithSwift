@@ -11,13 +11,13 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
 
-    @Query(sort: \Book.rating, order: .reverse) var books: [Book]  // how you can sort using SortDescriptor
+    @Query(sort: \Book.rating, order: .reverse) var books2: [Book]  // how you can sort using SortDescriptor
 
     // SortDescriptor can also be used in array, so you can sorting items using several condition you want
     @Query(sort: [
         SortDescriptor(\Book.title),
         SortDescriptor(\Book.author),
-    ]) var books2: [Book]
+    ]) var books: [Book]
 
     @State private var showingAddScreen = false
 
@@ -33,6 +33,7 @@ struct ContentView: View {
                             VStack(alignment: .leading) {
                                 Text(book.title)
                                     .font(.headline)
+                                    .foregroundStyle(book.rating == 1 ? .red : .primary) // for wrapUp challenge 2
 
                                 Text(book.author)
                                     .foregroundStyle(.secondary)

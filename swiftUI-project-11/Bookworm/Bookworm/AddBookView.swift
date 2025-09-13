@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+// For wrap-up Challenge 1
+extension String {
+    var isEmptyOrWhitespace: Bool {
+        trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
 struct AddBookView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
@@ -16,6 +23,11 @@ struct AddBookView: View {
     @State private var rating: Int = 3
     @State private var genre: String = "Fantasy"
     @State private var review: String = ""
+    
+    // For wrap-up Challenge 1
+    private var isDisabled: Bool {
+        !title.isEmptyOrWhitespace && !author.isEmptyOrWhitespace && !review.isEmptyOrWhitespace
+    }
     
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
     
@@ -40,11 +52,12 @@ struct AddBookView: View {
                 
                 Section {
                     Button("Save") {
-                        let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating)
+                        let newBook = Book(title: title, author: author, genre: genre, review: review, rating: rating, date: Date.now)
                         modelContext.insert(newBook)
                         dismiss()
                         
                     }
+                    .disabled(!isDisabled) // For wrap-up Challenge 1
                 }
             }
             .navigationTitle("Add book")
