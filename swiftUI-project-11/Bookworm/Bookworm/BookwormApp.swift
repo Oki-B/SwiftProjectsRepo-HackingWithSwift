@@ -13,8 +13,9 @@ import SwiftUI
 struct BookwormApp: App {
     var body: some Scene {
         WindowGroup {
-            IntroToSwiftData()
+            ContentView()
         }
-        .modelContainer(for: Student.self) // here we inject it
+//        .modelContainer(for: Student.self) // here we inject it
+        .modelContainer(for: Book.self) 
     }
 }
