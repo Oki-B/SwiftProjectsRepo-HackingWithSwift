@@ -10,52 +10,56 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query(
-        filter: #Predicate<User> { user in
-
-            //  user.name.localizedStandardContains("O") && user.city == "Tokyo"
-
-            // this also can works this way
-            if user.name.localizedStandardContains("O") {
-                if user.city == "Tokyo" {
-                    return true
-                } else {
-                    return false
-                }
-            } else {
-                return false
-            }
-        },
-        sort: \User.name
-    ) var users: [User]
+//    @Query(
+//        filter: #Predicate<User> { user in
+//
+//            //  user.name.localizedStandardContains("O") && user.city == "Tokyo"
+//
+//            // this also can works this way
+//            if user.name.localizedStandardContains("O") {
+//                if user.city == "Tokyo" {
+//                    return true
+//                } else {
+//                    return false
+//                }
+//            } else {
+//                return false
+//            }
+//        },
+//        sort: \User.name
+//    ) var users: [User]
+    
+    @State private var showingUpcomingOnly: Bool = false
+    @State private var sortOrder = [
+        SortDescriptor(\User.name),
+        SortDescriptor(\User.joinDate)
+    ]
 
     var body: some View {
         NavigationStack {
-            List(users) { user in
-                Text(user.name)
-            }
+            UsersView(minimumJoinDate: showingUpcomingOnly ? .now : .distantPast, sortOrder: sortOrder)
             .navigationTitle("Users")
             .toolbar {
                 Button("Add Samples", systemImage: "plus") {
                     try? modelContext.delete(model: User.self)
 
                     let first = User(
-                        name: "Tarjo",
+                        name: "Paijo",
                         city: "London",
                         joinDate: .now.addingTimeInterval(86400 * -10)
                     )
                     let second = User(
-                        name: "Paijo",
+                        name: "Oggah",
                         city: "Tokyo",
                         joinDate: .now.addingTimeInterval(86400 * -5)
                     )
                     let third = User(
-                        name: "Oggah",
+                        name: "Kai",
                         city: "Osaka",
                         joinDate: .now.addingTimeInterval(86400 * 5)
                     )
                     let fourth = User(
-                        name: "Kai",
+                        name: "Tarjo",
                         city: "New York",
                         joinDate: .now.addingTimeInterval(86400 * 10)
                     )
@@ -65,6 +69,26 @@ struct ContentView: View {
                     modelContext.insert(third)
                     modelContext.insert(fourth)
 
+                }
+                
+                Button(showingUpcomingOnly ? "Show Everyone" : "Show Upcoming") {
+                    showingUpcomingOnly.toggle()
+                }
+                
+                Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                    Picker("Sort", selection: $sortOrder) {
+                        Text("Sort by Name")
+                            .tag([
+                                SortDescriptor(\User.name),
+                                SortDescriptor(\User.joinDate)
+                            ])
+                        
+                        Text("Sort by Join Date")
+                            .tag([
+                                SortDescriptor(\User.joinDate),
+                                SortDescriptor(\User.name)
+                            ])
+                    }
                 }
             }
         }
