@@ -33,3 +33,13 @@ fastlane/test_output/
 # Other temp/cache
 *.tmp
 *.log
+
+# SwiftData / Core Data persistent stores
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# SwiftData model artifacts (generated at runtime, not needed in repo)
+*.momd
+*.mom
+*.mappingmodel
