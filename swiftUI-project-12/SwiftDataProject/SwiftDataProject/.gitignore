@@ -1,0 +1,35 @@
+# Xcode build artifacts
+build/
+DerivedData/
+*.xcuserstate
+
+# User-specific settings
+*.xcworkspace/xcuserdata/
+*.xcuserdatad
+*.xcscmblueprint
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+
+# iCloud / CloudKit local sync artifacts
+*.icloud
+
+# macOS files
+.DS_Store
+
+# Other temp/cache
+*.tmp
+*.log
