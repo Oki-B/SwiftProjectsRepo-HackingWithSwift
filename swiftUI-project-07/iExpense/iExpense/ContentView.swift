@@ -33,6 +33,7 @@ struct ContentView: View {
     @State private var sortOrder = [
         SortDescriptor(\Expense.name)
     ]
+    @State private var filter = ""
 
     var body: some View {
         NavigationStack {
@@ -45,7 +46,7 @@ struct ContentView: View {
             .pickerStyle(.segmented)
             .padding()
 
-            ExpensesView(sortOrder: sortOrder, currency: currency)
+            ExpensesView(sortOrder: sortOrder, currency: currency, type: filter)
             .navigationTitle("iExpense")
             .toolbar {
                 Button("Add Expense", systemImage: "plus") {
@@ -59,6 +60,19 @@ struct ContentView: View {
                         
                         Text("Sort by Amount")
                             .tag([SortDescriptor(\Expense.amount)])
+                    }
+                }
+                
+                Menu("Filter", systemImage: "line.3.horizontal.decrease.circle") {
+                    Picker("Filter", selection: $filter) {
+                        Text("All")
+                            .tag("")
+                        
+                        Text("Business")
+                            .tag("Business")
+                        
+                        Text("Personal")
+                            .tag("Personal")
                     }
                 }
             }
