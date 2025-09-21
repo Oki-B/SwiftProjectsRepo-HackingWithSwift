@@ -6,13 +6,7 @@
 //
 
 import SwiftUI
-
-struct ExpenseItem: Identifiable, Codable {
-    var id = UUID()
-    let name: String
-    let type: String
-    let amount: Double
-}
+import SwiftData
 
 // Wrap-up Challenge 2 -> Modify the expense amounts in ContentView to contain some styling depending on their value – expenses under $10 should have one style, expenses under $100 another, and expenses over $100 a third style. What those styles are depend on you.
 extension View {
@@ -27,37 +21,19 @@ extension View {
     }
 }
 
-@Observable
-class Expenses {
-    var items = [ExpenseItem]() {
-        didSet {
-            if let encoded = try? JSONEncoder().encode(items) {
-                UserDefaults.standard.set(encoded, forKey: "Items")
-            }
-        }
-    }
-
-    init() {
-        if let savedItems = UserDefaults.standard.data(forKey: "Items") {
-            if let decodedItems = try? JSONDecoder().decode(
-                [ExpenseItem].self,
-                from: savedItems
-            ) {
-                items = decodedItems
-                return
-            }
-        }
-        items = []
-    }
-}
-
 struct ContentView: View {
-    @State private var expenses = Expenses()
+    
+    @Environment(\.modelContext) var modelContext
+    @Query var expenses: [Expense]
+
 
     @State private var showingAddExpenseView = false
-
     @State private var currency =
         UserDefaults.standard.string(forKey: "currency") ?? "USD"
+    @State private var sortOrder = [
+        SortDescriptor(\Expense.name)
+    ]
+    @State private var filter = ""
 
     var body: some View {
         NavigationStack {
@@ -70,76 +46,34 @@ struct ContentView: View {
             .pickerStyle(.segmented)
             .padding()
 
-            List {
-                // using protocol Identifiable make us do not need wrote id parameter anymore it will automatically get id with type of UUID
-                
-                // Wrap-up challenge 3 -> For a bigger challenge, try splitting the expenses list into two sections: one for personal expenses, and one for business expenses. This is tricky for a few reasons, not least because it means being careful about how items are deleted!
-
-                Section("Personal Expenses") {
-                    if expenses.items.contains(where: { $0.type == "Personal" }) {
-                        ForEach(expenses.items) { item in
-                            if item.type == "Personal" {
-                                HStack {
-
-                                    VStack(alignment: .leading) {
-                                        Text(item.name)
-                                            .font(.headline)
-                                        Text(item.type)
-                                    }
-                                    Spacer()
-                                    Text(
-                                        item.amount,
-                                        format: .currency(code: currency)
-                                    )
-                                    .amountModifier(item.amount)
-                                }
-                            }
-                        }
-                        .onDelete(perform: removeItems)
-                    } else {
-                        Text("No personal expenses yet")
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                
-                Section("Business Expenses") {
-                    if expenses.items.contains(where: { $0.type == "Business" }) {
-                        ForEach(expenses.items) { item in
-                            if item.type == "Business" {
-                                HStack {
-
-                                    VStack(alignment: .leading) {
-                                        Text(item.name)
-                                            .font(.headline)
-                                        Text(item.type)
-                                    }
-                                    Spacer()
-                                    Text(
-                                        item.amount,
-                                        format: .currency(code: currency)
-                                    )
-                                    .amountModifier(item.amount)
-                                }
-                            }
-                        }
-                        .onDelete(perform: removeItems)
-                    } else {
-                        Text("No Business expenses yet")
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
-            }
+            ExpensesView(sortOrder: sortOrder, currency: currency, type: filter)
             .navigationTitle("iExpense")
             .toolbar {
                 Button("Add Expense", systemImage: "plus") {
                     showingAddExpenseView = true
+                }
+                
+                Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                    Picker("Sort", selection: $sortOrder) {
+                        Text("Sort by Name")
+                            .tag([SortDescriptor(\Expense.name)])
+                        
+                        Text("Sort by Amount")
+                            .tag([SortDescriptor(\Expense.amount)])
+                    }
+                }
+                
+                Menu("Filter", systemImage: "line.3.horizontal.decrease.circle") {
+                    Picker("Filter", selection: $filter) {
+                        Text("All")
+                            .tag("")
+                        
+                        Text("Business")
+                            .tag("Business")
+                        
+                        Text("Personal")
+                            .tag("Personal")
+                    }
                 }
             }
             .sheet(isPresented: $showingAddExpenseView) {
@@ -149,10 +83,6 @@ struct ContentView: View {
                 UserDefaults.standard.set(currency, forKey: "currency")
             }
         }
-    }
-
-    func removeItems(at offsets: IndexSet) {
-        expenses.items.remove(atOffsets: offsets)
     }
 
 }

@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddView: View {
+    @Environment(\.modelContext) var modelContext
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount: Double = 0.0
@@ -15,7 +17,7 @@ struct AddView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    var expenses: Expenses
+    var expenses: [Expense]
     
     let types = ["Business", "Personal"]
     
@@ -36,8 +38,8 @@ struct AddView: View {
             .navigationTitle("Add Expense")
             .toolbar {
                 Button("Save") {
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
+                    let item = Expense(name: name, type: type, amount: amount)
+                    modelContext.insert(item)
                     dismiss()
                 }
             }
@@ -46,5 +48,15 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(currencyCode: "USD", expenses: Expenses())
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Expense.self, configurations: config)
+        let expenses = [Expense]()
+        
+        return AddView(currencyCode: "USD", expenses: expenses)
+            .modelContainer(container)
+    } catch {
+        return Text("Error loading preview data: \(error.localizedDescription)")
+    }
+    
 }
